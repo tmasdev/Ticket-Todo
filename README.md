@@ -2,6 +2,8 @@
 
 A modern desktop task manager with Markdown support and due date tracking.
 
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/tmasdev/Ticket-Todo)](https://github.com/tmasdev/Ticket-Todo/releases/latest)
+
 ## Credits
 
 - **Development**: Thomas Gale
@@ -25,9 +27,11 @@ A modern desktop task manager with Markdown support and due date tracking.
 ## Installation
 
 Download the latest release for your platform:
-- macOS: `TicketTodo-darwin-x64.dmg`
-- Windows: `TicketTodo-win-x64.exe`
-- Linux: `TicketTodo-linux-x64.AppImage`
+- **macOS (Apple Silicon)**: `Ticket Todo-1.0.0-arm64.dmg`
+- **Windows**: `Ticket Todo Setup 1.0.0.exe`
+- **Linux**: `Ticket Todo-1.0.0-arm64.AppImage`
+
+[Download Latest Release](https://github.com/tmasdev/Ticket-Todo/releases/latest)
 
 ## Usage
 
