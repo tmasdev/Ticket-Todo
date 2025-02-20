@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Todo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- View Controls -->
+        <div class="view-controls">
+            <button id="list-view-btn" class="view-btn active" title="List View">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button id="grid-view-btn" class="view-btn" title="Grid View">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- List View -->
+        <div id="list-layout" class="list-layout">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <button id="open-master-folder-btn-list" class="btn btn-secondary">Open Master Folder</button>
+                    <button id="new-ticket-btn-list" class="btn btn-primary">New Ticket</button>
+                </div>
+                <div id="ticket-list" class="ticket-list"></div>
+            </div>
+            <div class="main-content">
+                <div id="ticket-detail-list" class="ticket-detail hidden">
+                    <div class="ticket-header">
+                        <input type="text" id="ticket-title-list" class="ticket-title-input" placeholder="Ticket Title">
+                        <div class="ticket-actions">
+                            <button id="open-folder-btn-list" class="btn btn-secondary">Open Folder</button>
+                            <button id="complete-ticket-btn-list" class="btn btn-done">Mark As Done</button>
+                        </div>
+                    </div>
+                    <div class="ticket-content">
+                        <div class="editor-container">
+                            <div id="editor-list" class="note-pad"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="empty-state-list" class="empty-state">
+                    <h2>No tickets yet</h2>
+                    <p>Create a new ticket to get started</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid View -->
+        <div id="grid-layout" class="grid-layout hidden">
+            <div class="grid-header">
+                <div class="grid-actions">
+                    <button id="open-master-folder-btn-grid" class="btn btn-secondary">Open Master Folder</button>
+                    <button id="new-ticket-btn-grid" class="btn btn-primary">New Ticket</button>
+                </div>
+            </div>
+            <div id="ticket-grid" class="ticket-grid"></div>
+            <div id="empty-state-grid" class="empty-state empty-state-grid hidden">
+                <h2>No tickets yet</h2>
+                <p>Create a new ticket to get started</p>
+            </div>
+        </div>
+
+        <!-- Fullscreen View -->
+        <div id="fullscreen-ticket" class="fullscreen-ticket hidden">
+            <div class="fullscreen-header">
+                <div class="header-content">
+                    <input type="text" id="ticket-title-full" class="ticket-title-input" placeholder="Ticket Title">
+                    <div class="ticket-actions">
+                        <button id="open-folder-btn-full" class="btn btn-secondary">Open Folder</button>
+                        <button id="complete-ticket-btn-full" class="btn btn-done">Mark As Done</button>
+                    </div>
+                </div>
+                <button id="close-fullscreen-btn" class="close-btn" title="Close">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+                        <path d="M4 4l8 8m0-8l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="ticket-content">
+                <div class="editor-container">
+                    <div id="editor-full" class="note-pad"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html> 
