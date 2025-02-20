@@ -27,7 +27,7 @@ Made entirely by a Cursor AI agent.
 
 ## Installation
 
-Download the latest release for your platform from the [releases page](https://github.com/tmasdev/Ticket-Todo/releases/latest).
+Download the latest release (v1.0.1) for your platform from the [releases page](https://github.com/tmasdev/ticket-todo/releases/latest).
 
 ### macOS (Apple Silicon)
 1. Download `Ticket Todo-1.0.0-arm64.dmg`
