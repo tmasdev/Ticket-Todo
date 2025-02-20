@@ -7,10 +7,11 @@
     "start": "electron .",
     "dev": "electron . --dev",
     "test": "jest",
-    "build": "electron-builder build --mac --win --linux",
-    "build:mac": "electron-builder build --mac",
-    "build:win": "electron-builder build --win",
-    "build:linux": "electron-builder build --linux"
+    "build": "electron-builder build --mac --win --linux && npm run organize-release",
+    "build:mac": "electron-builder build --mac && npm run organize-release",
+    "build:win": "electron-builder build --win --x64 && npm run organize-release",
+    "build:linux": "electron-builder build --linux --x64 && npm run organize-release",
+    "organize-release": "mkdir -p latest-release && cp dist/*.dmg dist/*.exe dist/*.AppImage latest-release/ 2>/dev/null || true"
   },
   "author": "Thomas Gale",
   "license": "MIT",
@@ -31,15 +32,32 @@
     ],
     "mac": {
       "category": "public.app-category.productivity",
-      "target": ["dmg"],
+      "target": {
+        "target": "dmg",
+        "arch": ["arm64"]
+      },
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
       "darkModeSupport": true
     },
     "win": {
-      "target": ["nsis"]
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "${productName} Setup ${version}.${ext}"
     },
     "linux": {
-      "target": ["AppImage"],
-      "category": "Office"
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        }
+      ],
+      "category": "Office",
+      "artifactName": "${productName}-${version}.${ext}"
     }
   }
 }
