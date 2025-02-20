@@ -1,6 +1,7 @@
 # Ticket Todo
 
-A modern desktop task manager with Markdown support and due date tracking.
+A modern desktop task manager with Markdown support and due date tracking. 
+Made entirely by a Cursor AI agent.
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/tmasdev/Ticket-Todo)](https://github.com/tmasdev/Ticket-Todo/releases/latest)
 
