@@ -27,12 +27,37 @@ Made entirely by a Cursor AI agent.
 
 ## Installation
 
-Download the latest release for your platform:
-- **macOS (Apple Silicon)**: `Ticket Todo-1.0.0-arm64.dmg`
-- **Windows**: `Ticket Todo Setup 1.0.0.exe`
-- **Linux**: `Ticket Todo-1.0.0-arm64.AppImage`
+Download the latest release for your platform from the [releases page](https://github.com/tmasdev/Ticket-Todo/releases/latest).
 
-[Download Latest Release](https://github.com/tmasdev/Ticket-Todo/releases/latest)
+### macOS (Apple Silicon)
+1. Download `Ticket Todo-1.0.0-arm64.dmg`
+2. Open the DMG file
+3. Drag the app to your Applications folder
+4. When opening for the first time, you may see a warning about the app being damaged
+   - Open Terminal and run: `xattr -cr "/Applications/Ticket Todo.app"`
+   - Or alternatively: `codesign --force --deep --sign - "/Applications/Ticket Todo.app"`
+5. Open the app again, and it should work
+
+### Windows
+1. Download `Ticket Todo Setup 1.0.0.exe`
+2. Run the installer
+3. Follow the installation wizard
+4. The app will be available in your Start menu
+
+### Linux
+1. Download `Ticket Todo-1.0.0.AppImage`
+2. Make it executable:
+   ```bash
+   chmod +x "Ticket Todo-1.0.0.AppImage"
+   ```
+3. Run the AppImage:
+   ```bash
+   ./Ticket\ Todo-1.0.0.AppImage
+   ```
+4. Optional: Move to your applications folder:
+   ```bash
+   mv "Ticket Todo-1.0.0.AppImage" ~/.local/bin/
+   ```
 
 ## Usage
 
@@ -52,8 +77,10 @@ Download the latest release for your platform:
      - Red: < 3 days
 
 3. **Organization**
-   - Active tickets: Stored in `~/Library/Application Support/ticket-todo/tickets/`
-   - Archived tickets: Stored in `~/Library/Application Support/ticket-todo/archive.json`
+   - Active tickets: Stored in `~/Library/Application Support/ticket-todo/tickets/` (macOS)
+   - Active tickets: Stored in `%APPDATA%/ticket-todo/tickets/` (Windows)
+   - Active tickets: Stored in `~/.config/ticket-todo/tickets/` (Linux)
+   - Archived tickets are stored in `archive.json` in the same directory
 
 ## License
 
