@@ -30,7 +30,7 @@ Made entirely by a Cursor AI agent.
 Download the latest release (v1.0.1) for your platform from the [releases page](https://github.com/tmasdev/ticket-todo/releases/latest).
 
 ### macOS (Apple Silicon)
-1. Download `Ticket Todo-1.0.0-arm64.dmg`
+1. Download `Ticket Todo-1.0.1-arm64.dmg`
 2. Open the DMG file
 3. Drag the app to your Applications folder
 4. When opening for the first time, you may see a warning about the app being damaged
@@ -44,24 +44,24 @@ Download the latest release (v1.0.1) for your platform from the [releases page](
 5. Open the app again, and it should work
 
 ### Windows
-1. Download `Ticket Todo Setup 1.0.0.exe`
+1. Download `Ticket Todo Setup 1.0.1.exe`
 2. Run the installer
 3. Follow the installation wizard
 4. The app will be available in your Start menu
 
 ### Linux
-1. Download `Ticket Todo-1.0.0.AppImage`
+1. Download `Ticket Todo-1.0.1.AppImage`
 2. Make it executable:
    ```bash
-   chmod +x "Ticket Todo-1.0.0.AppImage"
+   chmod +x "Ticket Todo-1.0.1.AppImage"
    ```
 3. Run the AppImage:
    ```bash
-   ./Ticket\ Todo-1.0.0.AppImage
+   ./Ticket\ Todo-1.0.1.AppImage
    ```
 4. Optional: Move to your applications folder:
    ```bash
-   mv "Ticket Todo-1.0.0.AppImage" ~/.local/bin/
+   mv "Ticket Todo-1.0.1.AppImage" ~/.local/bin/
    ```
 
 ## Usage
