@@ -457,19 +457,16 @@ async function completeTicket(view = currentView) {
         // Update UI
         renderTickets();
 
-        // Reset UI elements
-        if (detailElement) {
-            detailElement.classList.remove('ticket-fade-out');
-            detailElement.classList.add('hidden');
-        }
+        // Reset UI elements and clear detail views in both layouts
+        document.getElementById('ticket-detail-list').classList.remove('ticket-fade-out');
+        document.getElementById('ticket-detail-list').classList.add('hidden');
+        DOM.layouts.fullscreen.classList.remove('ticket-fade-out');
+        DOM.layouts.fullscreen.classList.add('hidden');
 
         // Show empty state if needed
         if (tickets.length === 0) {
-            if (view === 'list') {
-                DOM.emptyStates.list.classList.remove('hidden');
-            } else {
-                DOM.emptyStates.grid.classList.remove('hidden');
-            }
+            DOM.emptyStates.list.classList.remove('hidden');
+            DOM.emptyStates.grid.classList.remove('hidden');
         }
     } catch (error) {
         console.error('Error completing ticket:', error);
@@ -505,7 +502,7 @@ function createTicketItemElement(ticket, type = 'list') {
         <h3>${ticket.title}</h3>
         <div class="date">Set: ${new Date(ticket.createdAt).toLocaleDateString()}</div>
         ${dueDateText ? `<div class="due-date" style="${dueDateColor}">${dueDateText}</div>` : ''}
-        <div class="preview">${getContentPreview(ticket.content) || 'No content yet'}</div>
+        <div class="preview">${getContentPreview(ticket.content)}</div>
         <div class="ticket-actions">
             <button class="btn btn-done" title="Mark As Done">Done</button>
         </div>
