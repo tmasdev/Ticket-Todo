@@ -34,8 +34,13 @@ Download the latest release (v1.0.1) for your platform from the [releases page](
 2. Open the DMG file
 3. Drag the app to your Applications folder
 4. When opening for the first time, you may see a warning about the app being damaged
-   - Open Terminal and run: `xattr -cr "/Applications/Ticket Todo.app"`
-   - Or alternatively: `codesign --force --deep --sign - "/Applications/Ticket Todo.app"`
+   ```bash
+   xattr -cr "/Applications/Ticket Todo.app"
+   ```
+   Or alternatively:
+   ```bash
+   codesign --force --deep --sign - "/Applications/Ticket Todo.app"
+   ```
 5. Open the app again, and it should work
 
 ### Windows
