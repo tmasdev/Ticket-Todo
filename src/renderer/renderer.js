@@ -6,6 +6,7 @@ let currentTicket = null;
 let listEditor = null;
 let fullscreenEditor = null;
 let currentView = 'list';
+let currentTag = 'all';
 
 // Cache DOM elements
 const DOM = {
@@ -47,6 +48,12 @@ const DOM = {
         closeFullscreen: document.getElementById('close-fullscreen-btn'),
         openMasterFolderList: document.getElementById('open-master-folder-btn-list'),
         openMasterFolderGrid: document.getElementById('open-master-folder-btn-grid')
+    },
+    tagSelectors: {
+        list: document.getElementById('tag-selector-list'),
+        grid: document.getElementById('tag-selector-grid'),
+        ticketList: document.getElementById('ticket-tag-selector-list'),
+        ticketFull: document.getElementById('ticket-tag-selector-full')
     }
 };
 
@@ -351,7 +358,53 @@ function createDueDateInput(ticket) {
     return dueDateInput;
 }
 
-// Ticket management
+// Add tag helper functions
+function getUniqueTags() {
+    const tags = new Set(tickets.map(ticket => ticket.tag).filter(Boolean));
+    return Array.from(tags);
+}
+
+function updateTagSelectors() {
+    const tags = getUniqueTags();
+    const tagOptions = `
+        <option value="all">All Tickets</option>
+        <option value="">Untagged</option>
+        ${tags.map(tag => `<option value="${tag}">${tag}</option>`).join('')}
+    `;
+    
+    // Update view filter selectors
+    [DOM.tagSelectors.list, DOM.tagSelectors.grid].forEach(selector => {
+        if (selector) {
+            selector.innerHTML = tagOptions;
+            selector.value = currentTag;
+        }
+    });
+
+    // Update ticket tag selectors
+    [DOM.tagSelectors.ticketList, DOM.tagSelectors.ticketFull].forEach(selector => {
+        if (selector) {
+            selector.innerHTML = `
+                <option value="">No Tag</option>
+                ${tags.map(tag => `<option value="${tag}">${tag}</option>`).join('')}
+                <option value="new">+ New Tag</option>
+            `;
+            if (currentTicket) {
+                selector.value = currentTicket.tag || '';
+            }
+        }
+    });
+}
+
+function filterTickets() {
+    if (currentTag === 'all') {
+        return tickets;
+    }
+    return tickets.filter(ticket => 
+        currentTag === '' ? !ticket.tag : ticket.tag === currentTag
+    );
+}
+
+// Update ticket management functions
 async function createTicket(name) {
     const ticket = {
         id: generateId(),
@@ -359,7 +412,8 @@ async function createTicket(name) {
         content: '',
         createdAt: new Date().toISOString(),
         dueDate: null,
-        completed: false
+        completed: false,
+        tag: null
     };
 
     try {
@@ -399,6 +453,11 @@ async function selectTicket(ticket, view = currentView) {
             existingInput.remove();
         }
         ticketHeader.insertBefore(dueDateInput, ticketHeader.lastElementChild);
+
+        // Update tag selector
+        if (DOM.tagSelectors.ticketList) {
+            DOM.tagSelectors.ticketList.value = ticket.tag || '';
+        }
         
         document.querySelectorAll('.ticket-item').forEach(item => {
             item.classList.toggle('selected', item.dataset.id === ticket.id);
@@ -416,6 +475,11 @@ async function selectTicket(ticket, view = currentView) {
             existingInput.remove();
         }
         ticketHeader.insertBefore(dueDateInput, ticketHeader.lastElementChild);
+
+        // Update tag selector
+        if (DOM.tagSelectors.ticketFull) {
+            DOM.tagSelectors.ticketFull.value = ticket.tag || '';
+        }
     }
 }
 
@@ -500,6 +564,7 @@ function createTicketItemElement(ticket, type = 'list') {
     
     element.innerHTML = `
         <h3>${ticket.title}</h3>
+        ${ticket.tag ? `<div class="ticket-tag">${ticket.tag}</div>` : ''}
         <div class="date">Set: ${new Date(ticket.createdAt).toLocaleDateString()}</div>
         ${dueDateText ? `<div class="due-date" style="${dueDateColor}">${dueDateText}</div>` : ''}
         <div class="preview">${getContentPreview(ticket.content)}</div>
@@ -530,26 +595,31 @@ function createTicketItemElement(ticket, type = 'list') {
 }
 
 function renderTickets() {
+    const filteredTickets = filterTickets();
+    
     // Render list view
     DOM.containers.ticketList.innerHTML = '';
-    tickets.forEach(ticket => {
+    filteredTickets.forEach(ticket => {
         DOM.containers.ticketList.appendChild(createTicketItemElement(ticket, 'list'));
     });
 
     // Render grid view
     DOM.containers.ticketGrid.innerHTML = '';
-    tickets.forEach(ticket => {
+    filteredTickets.forEach(ticket => {
         DOM.containers.ticketGrid.appendChild(createTicketItemElement(ticket, 'grid'));
     });
 
     // Update empty states
-    if (tickets.length === 0) {
+    if (filteredTickets.length === 0) {
         DOM.emptyStates.grid.classList.remove('hidden');
         DOM.emptyStates.list.classList.remove('hidden');
     } else {
         DOM.emptyStates.grid.classList.add('hidden');
         DOM.emptyStates.list.classList.add('hidden');
     }
+
+    // Update tag selectors
+    updateTagSelectors();
 }
 
 // Storage functions
@@ -675,6 +745,38 @@ function initializeApp() {
         if (input) {
             input.addEventListener('input', e => {
                 if (currentTicket) handleTitleChange(e.target.value);
+            });
+        }
+    });
+
+    // Tag selector handling
+    [DOM.tagSelectors.list, DOM.tagSelectors.grid].forEach(selector => {
+        if (selector) {
+            selector.addEventListener('change', (e) => {
+                currentTag = e.target.value;
+                renderTickets();
+            });
+        }
+    });
+
+    // Ticket tag selector handling
+    [DOM.tagSelectors.ticketList, DOM.tagSelectors.ticketFull].forEach(selector => {
+        if (selector) {
+            selector.addEventListener('change', async (e) => {
+                if (!currentTicket) return;
+
+                let newTag = e.target.value;
+                if (newTag === 'new') {
+                    newTag = prompt('Enter new tag name:');
+                    if (!newTag) {
+                        selector.value = currentTicket.tag || '';
+                        return;
+                    }
+                }
+
+                currentTicket.tag = newTag || null;
+                await saveTickets();
+                renderTickets();
             });
         }
     });

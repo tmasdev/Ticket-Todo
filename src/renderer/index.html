@@ -31,6 +31,9 @@
                 <div class="sidebar-header">
                     <button id="open-master-folder-btn-list" class="btn btn-secondary">Open Master Folder</button>
                     <button id="new-ticket-btn-list" class="btn btn-primary">New Ticket</button>
+                    <select id="tag-selector-list" class="tag-selector">
+                        <option value="all">All Tickets</option>
+                    </select>
                 </div>
                 <div id="ticket-list" class="ticket-list"></div>
             </div>
@@ -39,6 +42,10 @@
                     <div class="ticket-header">
                         <input type="text" id="ticket-title-list" class="ticket-title-input" placeholder="Ticket Title">
                         <div class="ticket-actions">
+                            <select id="ticket-tag-selector-list" class="ticket-tag-selector">
+                                <option value="">No Tag</option>
+                                <option value="new">+ New Tag</option>
+                            </select>
                             <button id="open-folder-btn-list" class="btn btn-secondary">Open Folder</button>
                             <button id="complete-ticket-btn-list" class="btn btn-done">Mark As Done</button>
                         </div>
@@ -60,6 +67,9 @@
         <div id="grid-layout" class="grid-layout hidden">
             <div class="grid-header">
                 <div class="grid-actions">
+                    <select id="tag-selector-grid" class="tag-selector">
+                        <option value="all">All Tickets</option>
+                    </select>
                     <button id="open-master-folder-btn-grid" class="btn btn-secondary">Open Master Folder</button>
                     <button id="new-ticket-btn-grid" class="btn btn-primary">New Ticket</button>
                 </div>
@@ -77,6 +87,10 @@
                 <div class="header-content">
                     <input type="text" id="ticket-title-full" class="ticket-title-input" placeholder="Ticket Title">
                     <div class="ticket-actions">
+                        <select id="ticket-tag-selector-full" class="ticket-tag-selector">
+                            <option value="">No Tag</option>
+                            <option value="new">+ New Tag</option>
+                        </select>
                         <button id="open-folder-btn-full" class="btn btn-secondary">Open Folder</button>
                         <button id="complete-ticket-btn-full" class="btn btn-done">Mark As Done</button>
                     </div>
